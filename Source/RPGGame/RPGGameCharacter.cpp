@@ -57,6 +57,7 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARPGGameCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
+	PlayerInputComponent->BindAxis("CameraForward", this, &ARPGGameCharacter::CameraForward);
 }
 void ARPGGameCharacter::MoveForward(float Value)
 {
@@ -86,5 +87,13 @@ void ARPGGameCharacter::MoveRight(float Value)
 	}
 }
 void ARPGGameCharacter::CameraForward(float Value){
-
+	float Scale = 25.0;
+	float Distance = CameraBoom->TargetArmLength;
+	//forward
+	if (Value > 0.0&&Distance>=150.0f)
+		Distance -= Value * Scale;
+	//backward
+	else if (Value < 0.0 && Distance <= 300.0f)
+		Distance -= Value * Scale;
+	CameraBoom->TargetArmLength = Distance;
 }
