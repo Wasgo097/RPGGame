@@ -15,14 +15,19 @@ public:
 	FORCEINLINE class USpringArmComponent* GetCameraBoom() const { return CameraBoom; }
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 protected:
+	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	void Cast();
+	void Attack();
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void CameraForward(float Value);
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 		float Health = 1.0;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		float Mana = 1.0;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool Casting1H =false;
+	FTimerHandle ActionHandle;
 };
 

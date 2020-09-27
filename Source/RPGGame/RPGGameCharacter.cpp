@@ -35,11 +35,22 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	check(PlayerInputComponent);
 	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
+	PlayerInputComponent->BindAction("CastSpell", IE_Pressed, this, &ARPGGameCharacter::Cast);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ARPGGameCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARPGGameCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("CameraForward", this, &ARPGGameCharacter::CameraForward);
+}
+void ARPGGameCharacter::Cast(){
+	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle)) {
+		Casting1H = true;
+		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
+			Casting1H = false;
+			}, 1.2, false);
+	}
+}
+void ARPGGameCharacter::Attack(){
 }
 void ARPGGameCharacter::MoveForward(float Value){
 	if ((Controller != NULL) && (Value != 0.0f)&&!GetMovementComponent()->IsFalling())	{
