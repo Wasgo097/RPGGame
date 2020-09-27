@@ -33,9 +33,11 @@ ARPGGameCharacter::ARPGGameCharacter(){
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
 	// Set up gameplay key bindings
 	check(PlayerInputComponent);
-	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ACharacter::Jump);
+	PlayerInputComponent->BindAction("Jump", IE_Pressed, this, &ARPGGameCharacter::Jump);
 	PlayerInputComponent->BindAction("Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("CastSpell", IE_Pressed, this, &ARPGGameCharacter::Cast);
+	PlayerInputComponent->BindAction("NextSpell", IE_Pressed, this, &ARPGGameCharacter::NextSpell);
+	PlayerInputComponent->BindAction("PreviousSpell", IE_Pressed, this, &ARPGGameCharacter::PreviousSpell);
 	PlayerInputComponent->BindAxis("MoveForward", this, &ARPGGameCharacter::MoveForward);
 	PlayerInputComponent->BindAxis("MoveRight", this, &ARPGGameCharacter::MoveRight);
 	PlayerInputComponent->BindAxis("Turn", this, &APawn::AddControllerYawInput);
@@ -43,17 +45,19 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("CameraForward", this, &ARPGGameCharacter::CameraForward);
 }
 void ARPGGameCharacter::Cast(){
-	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle)) {
+	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling()) {
 		Casting1H = true;
+		AnyAction = true;
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
-			}, 1.2, false);
+			AnyAction = false;
+			}, 1.3, false);
 	}
 }
 void ARPGGameCharacter::Attack(){
 }
 void ARPGGameCharacter::MoveForward(float Value){
-	if ((Controller != NULL) && (Value != 0.0f)&&!GetMovementComponent()->IsFalling())	{
+	if ((Controller != NULL) && (Value != 0.0f)&&!GetMovementComponent()->IsFalling()&&!AnyAction){
 		// find out which way is forward
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);
@@ -63,7 +67,7 @@ void ARPGGameCharacter::MoveForward(float Value){
 	}
 }
 void ARPGGameCharacter::MoveRight(float Value){
-	if ( (Controller != NULL) && (Value != 0.0f) &&!GetMovementComponent()->IsFalling())	{
+	if ( (Controller != NULL) && (Value != 0.0f) &&!GetMovementComponent()->IsFalling()&&!AnyAction){
 		// find out which way is right
 		const FRotator Rotation = Controller->GetControlRotation();
 		const FRotator YawRotation(0, Rotation.Yaw, 0);	
@@ -83,4 +87,16 @@ void ARPGGameCharacter::CameraForward(float Value){
 	else if (Value < 0.0 && Distance <= 300.0f)
 		Distance -= Value * Scale;
 	CameraBoom->TargetArmLength = Distance;
+}
+void ARPGGameCharacter::Jump(){
+	if (!AnyAction)
+		Super::Jump();
+}
+void ARPGGameCharacter::NextSpell(){
+	if(ActualSpell<6)
+		ActualSpell ++;
+}
+void ARPGGameCharacter::PreviousSpell(){
+	if(ActualSpell>0)
+		ActualSpell--;
 }

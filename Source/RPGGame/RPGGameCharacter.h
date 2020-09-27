@@ -21,6 +21,9 @@ protected:
 	void MoveForward(float Value);
 	void MoveRight(float Value);
 	void CameraForward(float Value);
+	void Jump();
+	void NextSpell();
+	void PreviousSpell();
 protected:
 	UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
 		float Health = 1.0;
@@ -28,6 +31,9 @@ protected:
 		float Mana = 1.0;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool Casting1H =false;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+		bool AnyAction =false;
 	FTimerHandle ActionHandle;
+	int ActualSpell = 0;
 };
 
