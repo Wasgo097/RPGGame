@@ -16,6 +16,8 @@ public:
 	UBasicSpell(int32 Level, float Requirement);
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	virtual void UseSpell() {}
+	virtual void LevelUpSpell() {}
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

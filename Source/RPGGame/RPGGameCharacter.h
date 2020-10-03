@@ -6,6 +6,7 @@
 class ABasicSpell;
 class UHealthComponent;
 class UManaComponent;
+class UBasicSpell;
 UCLASS(config=Game)
 class ARPGGameCharacter : public ACharacter{
 	GENERATED_BODY()
@@ -32,10 +33,10 @@ protected:
 	UFUNCTION(BlueprintPure)
 		float MPRatio();
 protected:
-	//UPROPERTY(EditInstanceOnly,Category="Spell")
-	//	TArray<TSubclassOf<ABasicSpell>> AvailableSpells;
-	//UPROPERTY(BlueprintReadOnly, Category = "Spell")
-	//	TArray<ABasicSpell*> Spells;
+	UPROPERTY(EditInstanceOnly,Category="Spell")
+		TArray<TSubclassOf<UBasicSpell>> AvailableSpells;
+	UPROPERTY(BlueprintReadOnly, Category = "Spell")
+		TArray<UBasicSpell*> Spells;
 	UPROPERTY(BlueprintReadOnly,Category="HP")
 		UHealthComponent* HealthComp;
 	UPROPERTY(BlueprintReadOnly, Category = "MP")
