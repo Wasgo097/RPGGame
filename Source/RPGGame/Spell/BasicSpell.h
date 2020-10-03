@@ -11,11 +11,7 @@ UCLASS()
 class RPGGAME_API ABasicSpell : public AActor{
 	GENERATED_BODY()	
 public:	
-	ABasicSpell(){
-		PrimaryActorTick.bCanEverTick = true;
-		Level = 0;
-		Requirement = 0.0;
-	}
+	ABasicSpell();
 	// Sets default values for this actor's properties
 	ABasicSpell(int32 Level, float Requirement);
 	// Called every frame

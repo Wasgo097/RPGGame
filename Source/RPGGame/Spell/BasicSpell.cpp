@@ -9,6 +9,11 @@ ABasicSpell::ABasicSpell(int32 Level, float Requirement) :Level{ Level }, Requir
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 }
+ABasicSpell::ABasicSpell(){
+	PrimaryActorTick.bCanEverTick = true;
+	Level = 0;
+	Requirement = 0.0;
+}
 // Called when the game starts or when spawned
 void ABasicSpell::BeginPlay(){
 	Super::BeginPlay();
