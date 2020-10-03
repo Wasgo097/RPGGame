@@ -8,6 +8,9 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "ManaComponent.h"
+#include "HealthComponent.h"
+//#include "Spell/BasicSpell.h"
 ARPGGameCharacter::ARPGGameCharacter(){
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -29,6 +32,11 @@ ARPGGameCharacter::ARPGGameCharacter(){
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+	HealthComp = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
+	ManaComp = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponentn"));
+	//for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
+	//	//ABasicSpell * Spell= CreateDefaultSubobject<Spell::StaticLass()>
+	//}
 }
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
 	// Set up gameplay key bindings
@@ -53,6 +61,7 @@ void ARPGGameCharacter::Cast(){
 			AnyAction = false;
 			}, 1.3, false);
 	}
+//	Spells[0]->UseSpell();
 }
 void ARPGGameCharacter::Attack(){
 }
@@ -99,4 +108,10 @@ void ARPGGameCharacter::NextSpell(){
 void ARPGGameCharacter::PreviousSpell(){
 	if(ActualSpell>0)
 		ActualSpell--;
+}
+float ARPGGameCharacter::HPRatio(){
+	return HealthComp->GetRatio();
+}
+float ARPGGameCharacter::MPRatio(){
+	return ManaComp->GetRatio();
 }

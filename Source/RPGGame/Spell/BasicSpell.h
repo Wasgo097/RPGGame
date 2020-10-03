@@ -1,32 +1,30 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #pragma once
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Components/ActorComponent.h"
 #include "BasicSpell.generated.h"
-class UDamageType;
-class UParticleSystem;
-class USphereComponent;
 class UProjectileMovementComponent;
-UCLASS()
-class RPGGAME_API ABasicSpell : public AActor{
-	GENERATED_BODY()	
+class USphereComponent;
+class UParticleSystem;
+class UDamageType;
+UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+class RPGGAME_API UBasicSpell : public UActorComponent{
+	GENERATED_BODY()
 public:	
-	ABasicSpell();
-	// Sets default values for this actor's properties
-	ABasicSpell(int32 Level, float Requirement);
+	// Sets default values for this component's properties
+	UBasicSpell();
+	UBasicSpell(int32 Level, float Requirement);
 	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-	virtual void UseSpell() {}
-	virtual void LevelUpSpell(){}
+	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 protected:
-	// Called when the game starts or when spawned
+	// Called when the game starts
 	virtual void BeginPlay() override;
 	UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
 		UProjectileMovementComponent* MovementComp = nullptr;
-	UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay") 
-		USphereComponent* SphereCollision=nullptr;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay") 
-		UParticleSystem* ParticleEffect=nullptr;
+	UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
+		USphereComponent* SphereCollision = nullptr;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
+		UParticleSystem* ParticleEffect = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
 		TSubclassOf<UDamageType> DamageType;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")

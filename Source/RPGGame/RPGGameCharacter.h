@@ -3,7 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "RPGGameCharacter.generated.h"
-class ATargetSpell;
+class ABasicSpell;
 class UHealthComponent;
 class UManaComponent;
 UCLASS(config=Game)
@@ -27,13 +27,15 @@ protected:
 	void Jump();
 	void NextSpell();
 	void PreviousSpell();
+	UFUNCTION(BlueprintPure)
+		float HPRatio();
+	UFUNCTION(BlueprintPure)
+		float MPRatio();
 protected:
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
-		TArray<ATargetSpell*> Spells;
-	//UPROPERTY(VisibleAnywhere,BlueprintReadOnly)
-	//	float Health = 1.0;
-	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-	//	float Mana = 1.0;
+	//UPROPERTY(EditInstanceOnly,Category="Spell")
+	//	TArray<TSubclassOf<ABasicSpell>> AvailableSpells;
+	//UPROPERTY(BlueprintReadOnly, Category = "Spell")
+	//	TArray<ABasicSpell*> Spells;
 	UPROPERTY(BlueprintReadOnly,Category="HP")
 		UHealthComponent* HealthComp;
 	UPROPERTY(BlueprintReadOnly, Category = "MP")
@@ -43,5 +45,5 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool AnyAction =false;
 	FTimerHandle ActionHandle;
-	int ActualSpell = 0;
+	uint8 ActualSpell = 0;
 };

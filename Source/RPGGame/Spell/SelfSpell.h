@@ -4,6 +4,6 @@
 #include "BasicSpell.h"
 #include "SelfSpell.generated.h"
 UCLASS()
-class RPGGAME_API ASelfSpell : public ABasicSpell{
+class RPGGAME_API USelfSpell : public UBasicSpell{
 	GENERATED_BODY()	
 };

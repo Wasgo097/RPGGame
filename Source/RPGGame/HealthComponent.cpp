@@ -9,7 +9,8 @@ UHealthComponent::UHealthComponent(){
 // Called when the game starts
 void UHealthComponent::BeginPlay(){
 	Super::BeginPlay();
-	ActualHealth = MaxHealth;
+	ActualHealth = MaxHealth*0.5;
+	//ActualHealth = MaxHealth;
 	AActor* Owner = GetOwner();
 	if (Owner)
 		Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::HandleTakeAnyDamage);

@@ -4,7 +4,6 @@
 #include "BasicSpell.h"
 #include "RangeSpell.generated.h"
 UCLASS()
-class RPGGAME_API ARangeSpell : public ABasicSpell
-{
-	GENERATED_BODY()
+class RPGGAME_API URangeSpell : public UBasicSpell{
+	GENERATED_BODY()	
 };

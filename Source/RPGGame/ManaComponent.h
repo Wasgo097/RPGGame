@@ -11,6 +11,7 @@ public:
 	UManaComponent();
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	float GetRatio();
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -18,6 +19,4 @@ protected:
 		float ActualMana = 100.0;
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Mana")
 		float MaxMana = 100.0;
-	UFUNCTION(BlueprintPure)
-		float GetRatio();
 };

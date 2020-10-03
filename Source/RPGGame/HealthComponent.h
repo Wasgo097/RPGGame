@@ -11,6 +11,7 @@ public:
 	UHealthComponent();
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	float GetRatio();
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -21,6 +22,4 @@ protected:
 		float MaxHealth=100.0;
 	UFUNCTION()
 		void HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const class UDamageType* DamageType, class AController* InstigatedBy, AActor* DamageCauser);
-	UFUNCTION(BlueprintPure)
-		float GetRatio();
 };
