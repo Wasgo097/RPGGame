@@ -5,5 +5,8 @@
 #include "RangeSpell.generated.h"
 UCLASS()
 class RPGGAME_API URangeSpell : public UBasicSpell{
-	GENERATED_BODY()	
+	GENERATED_BODY()
+public:
+	virtual void UseSpell();
+	virtual void LevelUpSpell();
 };

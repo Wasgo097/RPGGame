@@ -13,16 +13,16 @@ class RPGGAME_API UBasicSpell : public UActorComponent{
 public:	
 	// Sets default values for this component's properties
 	UBasicSpell();
-	UBasicSpell(int32 Level, float Requirement);
+	UBasicSpell(int32 Level);
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	virtual void UseSpell() {}
-	virtual void LevelUpSpell() {}
+	virtual void UseSpell();
+	virtual void LevelUpSpell();
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
-	UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
-		UProjectileMovementComponent* MovementComp = nullptr;
+	//UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
+	//	UProjectileMovementComponent* MovementComp = nullptr;
 	UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
 		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
@@ -33,4 +33,8 @@ protected:
 		float Requirement;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		int32 Level;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
+		TMap<int32, float> ManaRequirementPerLevel;
+public:
+	bool SpellIsValid();
 };

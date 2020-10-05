@@ -34,7 +34,9 @@ ARPGGameCharacter::ARPGGameCharacter(){
 	HealthComp = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
 	ManaComp = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponentn"));
 	for (TSubclassOf<UBasicSpell> Spell : AvailableSpells) {
-		//UBasicSpell * Spell= CreateDefaultSubobject<Spell->GetClass()::StaticClass>
+		UBasicSpell* CurrentSpell = NewObject< UBasicSpell>(this, Spell->GetClass());
+		//UBasicSpell* Spell = CreateDefaultSubobject< UBasicSpell>(TEXT("Spell"), Spell->GetClass(), Spell->GetClass(), true, true);
+		Spells.Add(CurrentSpell);
 	}
 }
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
@@ -60,7 +62,7 @@ void ARPGGameCharacter::Cast(){
 			AnyAction = false;
 			}, 1.3, false);
 	}
-	//Spells[0]->UseSpell();
+	Spells[0]->UseSpell();
 }
 void ARPGGameCharacter::Attack(){
 }

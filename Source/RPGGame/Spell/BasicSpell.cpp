@@ -8,14 +8,25 @@ UBasicSpell::UBasicSpell(){
 	Requirement = 0.0f;
 	PrimaryComponentTick.bCanEverTick = true;
 }
-UBasicSpell::UBasicSpell(int32 Level, float Requirement) :Level{ Level }, Requirement{ Requirement } {
+UBasicSpell::UBasicSpell(int32 Level) :Level{ Level }{
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
 	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = true;
+	Requirement = ManaRequirementPerLevel[Level];
 }
+// Called every frame
+//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+void UBasicSpell::UseSpell() {
+	if (!SpellIsValid())
+		UE_LOG(LogTemp, Warning, TEXT("Spell isn't valid %s"), *this->GetFName().ToString());
+}
+void UBasicSpell::LevelUpSpell() {}
 // Called when the game starts
 void UBasicSpell::BeginPlay(){
 	Super::BeginPlay();
+}
+bool UBasicSpell::SpellIsValid(){
+	return ManaRequirementPerLevel.Num() > 1 && Level > 0 && Requirement > 0 && ParticleEffect != nullptr;
 }
 // Called every frame
 //void UBasicSpell::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction){

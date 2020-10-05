@@ -3,3 +3,10 @@
 
 #include "TargetSpell.h"
 
+void UTargetSpell::LevelUpSpell() {
+	Super::LevelUpSpell();
+}
+void UTargetSpell::UseSpell() {
+	Super::UseSpell();
+}
+

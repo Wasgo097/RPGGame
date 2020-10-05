@@ -5,5 +5,8 @@
 #include "TargetSpell.generated.h"
 UCLASS()
 class RPGGAME_API UTargetSpell : public UBasicSpell{
-	GENERATED_BODY()	
+	GENERATED_BODY()
+public:
+	virtual void UseSpell();
+	virtual void LevelUpSpell();
 };
