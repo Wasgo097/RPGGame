@@ -2,9 +2,9 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "BasicSpell.h"
-#include "RangeSpell.generated.h"
+#include "AreaSpell.generated.h"
 UCLASS()
-class RPGGAME_API URangeSpell : public UBasicSpell{
+class RPGGAME_API AAreaSpell : public ABasicSpell{
 	GENERATED_BODY()
 public:
 	virtual void UseSpell();

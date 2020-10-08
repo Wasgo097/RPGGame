@@ -4,7 +4,7 @@
 #include "BasicSpell.h"
 #include "TargetSpell.generated.h"
 UCLASS()
-class RPGGAME_API UTargetSpell : public UBasicSpell{
+class RPGGAME_API ATargetSpell : public ABasicSpell{
 	GENERATED_BODY()
 public:
 	virtual void UseSpell();

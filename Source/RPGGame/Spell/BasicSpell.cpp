@@ -1,35 +1,34 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "BasicSpell.h"
-// Sets default values for this component's properties
-UBasicSpell::UBasicSpell(){
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
+#include "Particles/ParticleSystem.h"
+#include "Components/SphereComponent.h"
+#include "GameFramework/DamageType.h"
+// Sets default values
+ABasicSpell::ABasicSpell(){
+ 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 	Level = 0;
 	Requirement = 0.0f;
-	PrimaryComponentTick.bCanEverTick = true;
 }
-UBasicSpell::UBasicSpell(int32 Level) :Level{ Level }{
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
-	Requirement = ManaRequirementPerLevel[Level];
+// Called when the game starts or when spawned
+void ABasicSpell::BeginPlay(){
+	Super::BeginPlay();	
 }
 // Called every frame
-//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-void UBasicSpell::UseSpell() {
+//void ABasicSpell::Tick(float DeltaTime){
+//	Super::Tick(DeltaTime);
+//}
+bool ABasicSpell::SpellIsValid(){
+	return ManaRequirementPerLevel.Num() > 0 && Level > 0 && Requirement > 0 && ParticleEffect != nullptr;
+}
+void ABasicSpell::UseSpell(){
 	if (!SpellIsValid())
 		UE_LOG(LogTemp, Warning, TEXT("Spell isn't valid %s"), *this->GetFName().ToString());
 }
-void UBasicSpell::LevelUpSpell() {}
-// Called when the game starts
-void UBasicSpell::BeginPlay(){
-	Super::BeginPlay();
+void ABasicSpell::LevelUpSpell(){
 }
-bool UBasicSpell::SpellIsValid(){
-	return ManaRequirementPerLevel.Num() > 1 && Level > 0 && Requirement > 0 && ParticleEffect != nullptr;
+void ABasicSpell::InitSpell(int32 NewLevel){
+	this->Level = NewLevel;
+	this->Requirement = ManaRequirementPerLevel[this->Level];
 }
-// Called every frame
-//void UBasicSpell::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction){
-//	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-//}
 

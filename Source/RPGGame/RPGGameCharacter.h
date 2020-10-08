@@ -33,10 +33,10 @@ protected:
 	UFUNCTION(BlueprintPure)
 		float MPRatio();
 protected:
-	UPROPERTY(EditInstanceOnly,Category="Spell")
-		TArray<TSubclassOf<UBasicSpell>> AvailableSpells;
-	UPROPERTY(BlueprintReadOnly, Category = "Spell")
-		TArray<UBasicSpell*> Spells;
+	/*UPROPERTY(EditInstanceOnly,Category="Spell")
+		TArray<TSubclassOf<UBasicSpell>> AvailableSpells;*/
+	/*UPROPERTY(BlueprintReadOnly, Category = "Spell")
+		TArray<UBasicSpell*> Spells;*/
 	UPROPERTY(BlueprintReadOnly,Category="HP")
 		UHealthComponent* HealthComp;
 	UPROPERTY(BlueprintReadOnly, Category = "MP")

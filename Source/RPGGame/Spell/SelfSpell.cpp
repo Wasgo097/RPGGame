@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "SelfSpell.h"
 #include "Kismet/GameplayStatics.h"
-void USelfSpell::LevelUpSpell() {
+#include "GameFramework/Character.h"
+void ASelfSpell::LevelUpSpell(){
 	Super::LevelUpSpell();
-	//if (SpellIsValid()) {
-	if (ParticleEffect) {
-		UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, GetOwner()->GetActorLocation());
+}
+void ASelfSpell::UseSpell(){
+	Super::UseSpell();
+	if (SpellIsValid()) {
+		if(ACharacter * MyCharacter= UGameplayStatics::GetPlayerCharacter(GetWorld(), 0))
+			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, MyCharacter->GetActorLocation());
 	}
 }
-void USelfSpell::UseSpell() {
-	Super::UseSpell();
-}
-
