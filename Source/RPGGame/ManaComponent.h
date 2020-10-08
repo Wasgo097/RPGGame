@@ -11,7 +11,8 @@ public:
 	UManaComponent();
 	// Called every frame
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	float GetRatio();
+	UFUNCTION(BlueprintPure)
+		float GetRatio();
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

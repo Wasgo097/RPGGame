@@ -3,12 +3,15 @@
 #include "Particles/ParticleSystem.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/DamageType.h"
+#include "Components/SceneComponent.h"
 // Sets default values
 ABasicSpell::ABasicSpell(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 	Level = 0;
 	Requirement = 0.0f;
+	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
+	RootComponent = SceneComponent;
 }
 // Called when the game starts or when spawned
 void ABasicSpell::BeginPlay(){

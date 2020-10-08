@@ -6,6 +6,7 @@
 class USphereComponent;
 class UParticleSystem;
 class UDamageType;
+class USceneComponent;
 //class UProjectileMovementComponent;
 UCLASS()
 class RPGGAME_API ABasicSpell : public AActor{
@@ -24,6 +25,8 @@ protected:
 	virtual void BeginPlay() override;
 	//UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
 	//	UProjectileMovementComponent* MovementComp = nullptr;
+	UPROPERTY(BlueprintReadOnly)
+		USceneComponent* SceneComponent;
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")

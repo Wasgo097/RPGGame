@@ -7,9 +7,11 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Engine/SkeletalMeshSocket.h"
+/////
 #include "ManaComponent.h"
 #include "HealthComponent.h"
-//#include "Spell/BasicSpell.h"
+#include "Spell/BasicSpell.h"
 ARPGGameCharacter::ARPGGameCharacter(){
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -33,11 +35,17 @@ ARPGGameCharacter::ARPGGameCharacter(){
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 	HealthComp = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
 	ManaComp = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponentn"));
-	//for (TSubclassOf<UBasicSpell> Spell : AvailableSpells) {
-	//	UBasicSpell* CurrentSpell = NewObject< UBasicSpell>(this, Spell->GetClass());
-	//	//UBasicSpell* Spell = CreateDefaultSubobject< UBasicSpell>(TEXT("Spell"), Spell->GetClass(), Spell->GetClass(), true, true);
-	//	Spells.Add(CurrentSpell);
-	//}
+	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
+		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell->GetClass());
+		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+		/*FName Socket = TEXT("RightHandSocket");
+		USkeletalMeshComponent* mesh =GetMesh();
+		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
+		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
+		Spells.Add(CurrentSpell);
+		auto test = CurrentSpell->GetAttachParentSocketName();
+		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
+	}
 }
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
 	// Set up gameplay key bindings
