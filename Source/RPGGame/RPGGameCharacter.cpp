@@ -50,19 +50,20 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("CameraForward", this, &ARPGGameCharacter::CameraForward);
 }
-//void ARPGGameCharacter::BeginPlay(){
-//	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
-//		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
-//		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-//		/*FName Socket = TEXT("RightHandSocket");
-//		USkeletalMeshComponent* mesh =GetMesh();
-//		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
-//		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
-//		auto test = CurrentSpell->GetAttachParentSocketName();
-//		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
-//		Spells.Add(CurrentSpell);
-//	}
-//}
+void ARPGGameCharacter::BeginPlay(){
+	Super::BeginPlay();
+	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
+		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
+		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+		/*FName Socket = TEXT("RightHandSocket");
+		USkeletalMeshComponent* mesh =GetMesh();
+		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
+		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
+		auto test = CurrentSpell->GetAttachParentSocketName();
+		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
+		Spells.Add(CurrentSpell);
+	}
+}
 void ARPGGameCharacter::Cast(){
 	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling()) {
 		Casting1H = true;
@@ -72,7 +73,7 @@ void ARPGGameCharacter::Cast(){
 			AnyAction = false;
 			}, 1.3, false);
 	}
-	//Spells[1]->UseSpell();
+	Spells[1]->UseSpell();
 }
 void ARPGGameCharacter::Attack(){
 }

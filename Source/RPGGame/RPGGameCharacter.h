@@ -20,7 +20,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	//virtual void BeginPlay();
+	virtual void BeginPlay();
 	void Cast();
 	void Attack();
 	void MoveForward(float Value);
