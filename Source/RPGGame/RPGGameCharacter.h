@@ -47,5 +47,6 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool AnyAction =false;
 	FTimerHandle ActionHandle;
-	uint8 ActualSpell = 0;
+	//index 0 is null
+	int32 CurrentSpell = 1;
 };

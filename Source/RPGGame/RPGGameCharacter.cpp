@@ -53,15 +53,16 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 void ARPGGameCharacter::BeginPlay(){
 	Super::BeginPlay();
 	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
-		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
+		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
+		ACurrentSpell->InitSpell(1);
 		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
 		/*FName Socket = TEXT("RightHandSocket");
 		USkeletalMeshComponent* mesh =GetMesh();
 		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
-		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
-		auto test = CurrentSpell->GetAttachParentSocketName();
+		ACurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
+		auto test = ACurrentSpell->GetAttachParentSocketName();
 		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
-		Spells.Add(CurrentSpell);
+		Spells.Add(ACurrentSpell);
 	}
 }
 void ARPGGameCharacter::Cast(){
@@ -72,8 +73,8 @@ void ARPGGameCharacter::Cast(){
 			Casting1H = false;
 			AnyAction = false;
 			}, 1.3, false);
+		Spells[CurrentSpell]->UseSpell();
 	}
-	Spells[1]->UseSpell();
 }
 void ARPGGameCharacter::Attack(){
 }
@@ -114,12 +115,14 @@ void ARPGGameCharacter::Jump(){
 		Super::Jump();
 }
 void ARPGGameCharacter::NextSpell(){
-	if(ActualSpell<6)
-		ActualSpell ++;
+	if(CurrentSpell<7)
+		CurrentSpell ++;
+	UE_LOG(LogTemp, Display, TEXT("Current Spell is %d"), CurrentSpell);
 }
 void ARPGGameCharacter::PreviousSpell(){
-	if(ActualSpell>0)
-		ActualSpell--;
+	if(CurrentSpell>1)
+		CurrentSpell--;
+	UE_LOG(LogTemp, Display, TEXT("Current Spell is %d"), CurrentSpell);
 }
 float ARPGGameCharacter::HPRatio(){
 	return HealthComp->GetRatio();
