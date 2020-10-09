@@ -20,6 +20,7 @@ public:
 	FORCEINLINE class UCameraComponent* GetFollowCamera() const { return FollowCamera; }
 protected:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	//virtual void BeginPlay();
 	void Cast();
 	void Attack();
 	void MoveForward(float Value);
@@ -33,7 +34,7 @@ protected:
 	UFUNCTION(BlueprintPure)
 		float MPRatio();
 protected:
-	UPROPERTY(EditInstanceOnly,Category="Spell")
+	UPROPERTY(EditInstanceOnly, Category = "Spell")
 		TArray<TSubclassOf<ABasicSpell>> AvailableSpells;
 	UPROPERTY(BlueprintReadOnly, Category = "Spell")
 		TArray<ABasicSpell*> Spells;

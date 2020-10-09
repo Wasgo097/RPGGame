@@ -35,17 +35,6 @@ ARPGGameCharacter::ARPGGameCharacter(){
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 	HealthComp = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
 	ManaComp = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponentn"));
-	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
-		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell->GetClass());
-		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-		/*FName Socket = TEXT("RightHandSocket");
-		USkeletalMeshComponent* mesh =GetMesh();
-		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
-		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
-		Spells.Add(CurrentSpell);
-		auto test = CurrentSpell->GetAttachParentSocketName();
-		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
-	}
 }
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
 	// Set up gameplay key bindings
@@ -61,6 +50,19 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 	PlayerInputComponent->BindAxis("LookUp", this, &APawn::AddControllerPitchInput);
 	PlayerInputComponent->BindAxis("CameraForward", this, &ARPGGameCharacter::CameraForward);
 }
+//void ARPGGameCharacter::BeginPlay(){
+//	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
+//		ABasicSpell* CurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
+//		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
+//		/*FName Socket = TEXT("RightHandSocket");
+//		USkeletalMeshComponent* mesh =GetMesh();
+//		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
+//		CurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
+//		auto test = CurrentSpell->GetAttachParentSocketName();
+//		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
+//		Spells.Add(CurrentSpell);
+//	}
+//}
 void ARPGGameCharacter::Cast(){
 	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling()) {
 		Casting1H = true;
@@ -70,7 +72,7 @@ void ARPGGameCharacter::Cast(){
 			AnyAction = false;
 			}, 1.3, false);
 	}
-	//Spells[0]->UseSpell();
+	//Spells[1]->UseSpell();
 }
 void ARPGGameCharacter::Attack(){
 }
