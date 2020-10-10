@@ -20,6 +20,8 @@ public:
 	virtual void UseSpell();
 	virtual void LevelUpSpell();
 	void InitSpell(int32 NewLevel);
+	float GetRequirement() { return Requirement; }
+	int32 GetLevel() { return Level; }
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;

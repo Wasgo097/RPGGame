@@ -33,8 +33,8 @@ ARPGGameCharacter::ARPGGameCharacter(){
 	FollowCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName); // Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
-	HealthComp = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
-	ManaComp = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponentn"));
+	HealthComponent = CreateDefaultSubobject< UHealthComponent>(TEXT("HealthComponent"));
+	ManaComponent = CreateDefaultSubobject<UManaComponent>(TEXT("ManaComponent"));
 }
 void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent){
 	// Set up gameplay key bindings
@@ -66,13 +66,14 @@ void ARPGGameCharacter::BeginPlay(){
 	}
 }
 void ARPGGameCharacter::Cast(){
-	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling()) {
+	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling() && ManaComponent->CastIsPossible(Spells[CurrentSpell]->GetRequirement())){
 		Casting1H = true;
 		AnyAction = true;
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
 			AnyAction = false;
 			}, 1.3, false);
+		ManaComponent->Cast(Spells[CurrentSpell]->GetRequirement());
 		Spells[CurrentSpell]->UseSpell();
 	}
 }
@@ -125,8 +126,8 @@ void ARPGGameCharacter::PreviousSpell(){
 	UE_LOG(LogTemp, Display, TEXT("Current Spell is %d"), CurrentSpell);
 }
 float ARPGGameCharacter::HPRatio(){
-	return HealthComp->GetRatio();
+	return HealthComponent->GetRatio();
 }
 float ARPGGameCharacter::MPRatio(){
-	return ManaComp->GetRatio();
+	return ManaComponent->GetRatio();
 }

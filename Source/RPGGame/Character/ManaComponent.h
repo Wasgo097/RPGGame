@@ -13,6 +13,8 @@ public:
 	//virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	UFUNCTION(BlueprintPure)
 		float GetRatio();
+	bool CastIsPossible(float Requirement);
+	void Cast(float Requirement);
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;

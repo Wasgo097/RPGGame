@@ -39,9 +39,9 @@ protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Spell")
 		TArray<ABasicSpell*> Spells;
 	UPROPERTY(BlueprintReadOnly,Category="HP")
-		UHealthComponent* HealthComp;
+		UHealthComponent* HealthComponent;
 	UPROPERTY(BlueprintReadOnly, Category = "MP")
-		UManaComponent* ManaComp;
+		UManaComponent* ManaComponent;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool Casting1H =false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
