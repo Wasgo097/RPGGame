@@ -1,5 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "HealthComponent.h"
+#include "../Utilities//MyDamageTypes.h"
+#include "GameFramework/DamageType.h"
 // Sets default values for this component's properties
 UHealthComponent::UHealthComponent(){
 	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
@@ -16,6 +18,9 @@ void UHealthComponent::BeginPlay(){
 		Owner->OnTakeAnyDamage.AddDynamic(this, &UHealthComponent::HandleTakeAnyDamage);
 }
 void UHealthComponent::HandleTakeAnyDamage(AActor* DamagedActor, float Damage, const UDamageType* DamageType, AController* InstigatedBy, AActor* DamageCauser){
+	TSubclassOf<URestoreHealth> Healing(URestoreHealth::StaticClass());
+	if (DamageType->GetClass() == Healing)
+		Damage *= -1.0;
 	ActualHealth = FMath::Clamp(ActualHealth - Damage, 0.0f, MaxHealth);
 	UE_LOG(LogTemp, Display, TEXT("Actual HP = %f"), ActualHealth);
 }
