@@ -33,12 +33,12 @@ protected:
 		UParticleSystem* ParticleEffect = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
 		TSubclassOf<UDamageType> DamageType;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
+		TMap<int32, float> ManaRequirementPerLevel;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		float Requirement;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		int32 Level;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
-		TMap<int32, float> ManaRequirementPerLevel;
 private:
 	bool bIsValid = false;
 };

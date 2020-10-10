@@ -11,7 +11,7 @@
 /////
 #include "ManaComponent.h"
 #include "HealthComponent.h"
-#include "Spell/BasicSpell.h"
+#include "../Spell/BasicSpell.h"
 ARPGGameCharacter::ARPGGameCharacter(){
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);

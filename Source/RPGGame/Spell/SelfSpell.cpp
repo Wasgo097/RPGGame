@@ -2,6 +2,7 @@
 #include "SelfSpell.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
+#include "SelfSpellDataAsset.h"
 void ASelfSpell::LevelUpSpell(){
 	Super::LevelUpSpell();
 }
@@ -10,7 +11,7 @@ void ASelfSpell::UseSpell(){
 	if (SpellIsValid()) {
 		if (ACharacter* MyCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) {
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, MyCharacter->GetActorLocation());
-			UGameplayStatics::ApplyDamage(MyCharacter, 10, nullptr, MyCharacter, nullptr);
+			UGameplayStatics::ApplyDamage(MyCharacter, 10, nullptr, MyCharacter, DamageType);
 		}
 	}
 }

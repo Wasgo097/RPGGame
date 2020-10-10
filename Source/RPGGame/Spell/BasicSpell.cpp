@@ -2,7 +2,7 @@
 #include "BasicSpell.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SphereComponent.h"
-#include "GameFramework/DamageType.h"
+//#include "GameFramework/DamageType.h"
 #include "Components/SceneComponent.h"
 // Sets default values
 ABasicSpell::ABasicSpell(){
