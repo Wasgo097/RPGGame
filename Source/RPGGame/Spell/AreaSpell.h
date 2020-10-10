@@ -9,7 +9,7 @@ class RPGGAME_API AAreaSpell : public ABasicSpell{
 	GENERATED_BODY()
 public:
 	virtual void UseSpell();
-	virtual void LevelUpSpell();
+	virtual bool LevelUpSpell();
 	virtual bool SpellIsValid();
 protected:
 	UPROPERTY(EditDefaultsOnly,Category="Data")

@@ -9,7 +9,7 @@ class RPGGAME_API ASelfSpell : public ABasicSpell{
 	GENERATED_BODY()
 public:
 	virtual void UseSpell();
-	virtual void LevelUpSpell();
+	virtual bool LevelUpSpell();
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Data")
 		USelfSpellDataAsset* DataAsset;

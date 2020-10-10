@@ -18,7 +18,7 @@ public:
 	//virtual void Tick(float DeltaTime) override;
 	virtual bool SpellIsValid();
 	virtual void UseSpell();
-	virtual void LevelUpSpell();
+	virtual bool LevelUpSpell();
 	void InitSpell(int32 NewLevel);
 	float GetRequirement() { return Requirement; }
 	int32 GetLevel() { return Level; }

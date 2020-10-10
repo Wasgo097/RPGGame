@@ -27,7 +27,13 @@ void ABasicSpell::UseSpell(){
 	if (!SpellIsValid())
 		UE_LOG(LogTemp, Warning, TEXT("Spell isn't valid %s"), *this->GetFName().ToString());
 }
-void ABasicSpell::LevelUpSpell(){
+bool ABasicSpell::LevelUpSpell(){
+	if (ManaRequirementPerLevel.Contains(Level + 1)) {
+		Level++;
+		Requirement = ManaRequirementPerLevel[Level];
+		return true;
+	}
+	return false;
 }
 void ABasicSpell::InitSpell(int32 NewLevel){
 	this->Level = NewLevel;

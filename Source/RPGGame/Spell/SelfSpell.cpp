@@ -2,9 +2,9 @@
 #include "SelfSpell.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
-#include "SelfSpellDataAsset.h"
-void ASelfSpell::LevelUpSpell(){
-	Super::LevelUpSpell();
+#include "DataAsset/SelfSpellDataAsset.h"
+bool ASelfSpell::LevelUpSpell(){
+	return Super::LevelUpSpell();
 }
 void ASelfSpell::UseSpell(){
 	Super::UseSpell();
