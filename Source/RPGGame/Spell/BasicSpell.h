@@ -16,7 +16,7 @@ public:
 	ABasicSpell();
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
-	bool SpellIsValid();
+	virtual bool SpellIsValid();
 	virtual void UseSpell();
 	virtual void LevelUpSpell();
 	void InitSpell(int32 NewLevel);
@@ -26,7 +26,7 @@ protected:
 	//UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
 	//	UProjectileMovementComponent* MovementComp = nullptr;
 	UPROPERTY(BlueprintReadOnly)
-		USceneComponent* SceneComponent;
+		USceneComponent* SceneComponent=nullptr;
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
@@ -39,4 +39,6 @@ protected:
 		int32 Level;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
 		TMap<int32, float> ManaRequirementPerLevel;
+private:
+	bool bIsValid = false;
 };

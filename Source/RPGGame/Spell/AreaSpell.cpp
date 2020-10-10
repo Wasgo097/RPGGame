@@ -4,6 +4,9 @@
 void AAreaSpell::LevelUpSpell(){
 	Super::LevelUpSpell();
 }
+bool AAreaSpell::SpellIsValid(){
+	return Super::SpellIsValid() && SphereCollision != nullptr;
+}
 void AAreaSpell::UseSpell(){
 	Super::UseSpell();
 }

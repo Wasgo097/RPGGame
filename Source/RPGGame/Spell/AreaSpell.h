@@ -9,4 +9,5 @@ class RPGGAME_API AAreaSpell : public ABasicSpell{
 public:
 	virtual void UseSpell();
 	virtual void LevelUpSpell();
+	virtual bool SpellIsValid();
 };
