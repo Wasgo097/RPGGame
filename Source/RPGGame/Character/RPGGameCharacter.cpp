@@ -56,9 +56,6 @@ void ARPGGameCharacter::BeginPlay(){
 		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
 		ACurrentSpell->InitSpell(1);
 		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
-		/*FName Socket = TEXT("RightHandSocket");
-		USkeletalMeshComponent* mesh =GetMesh();
-		const USkeletalMeshSocket* socketInstance = mesh->GetSocketByName(Socket);*/
 		ACurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
 		auto test = ACurrentSpell->GetAttachParentSocketName();
 		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
@@ -72,7 +69,7 @@ void ARPGGameCharacter::Cast(){
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
 			AnyAction = false;
-			}, 1.3, false);
+			}, 1.4, false);
 		ManaComponent->Cast(Spells[CurrentSpell]->GetRequirement());
 		Spells[CurrentSpell]->UseSpell();
 	}

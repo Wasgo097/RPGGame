@@ -42,6 +42,7 @@ protected:
 		UHealthComponent* HealthComponent;
 	UPROPERTY(BlueprintReadOnly, Category = "MP")
 		UManaComponent* ManaComponent;
+	//Animation and movement
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 		bool Casting1H =false;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
