@@ -1,9 +1,12 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 #include "Projectile.h"
+//
+#include "DrawDebugHelpers.h"
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SphereComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#define debug 1
 // Sets default values
 AProjectile::AProjectile(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
@@ -35,6 +38,10 @@ void AProjectile::BeginPlay(){
 }
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit){
 	// Only add impulse and destroy projectile if we hit a physics
+	UE_LOG(LogTemp, Display, TEXT("OnHit"));
+#if debug
+	DrawDebugSphere(GetWorld(), Hit.Location, 4.0, 12, FColor::Red, false, 10.0, 0, 1.0);
+#endif
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics()){
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 		if(DestroyParticle)
@@ -47,12 +54,12 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 		UE_LOG(LogTemp, Display, TEXT("Projectile isn't valid during OnHit %s"), * (GetFName().ToString()));
 	}
 }
-void AProjectile::InitProjectile(TSubclassOf<UDamageType> ProjectileDamageType){
-	DamageType = ProjectileDamageType;
+void AProjectile::InitProjectile(TSubclassOf<UDamageType> InProjectileDamageType, UParticleSystem* InDestroyParticle){
+	DamageType = InProjectileDamageType;
+	DestroyParticle = InDestroyParticle;
 	bIsValid = DamageType != nullptr && DestroyParticle != nullptr && MovementParticle != nullptr;
 }
 // Called every frame
 //void AProjectile::Tick(float DeltaTime){
 //	Super::Tick(DeltaTime);
 //}
-

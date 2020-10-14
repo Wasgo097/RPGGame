@@ -12,6 +12,7 @@
 #include "ManaComponent.h"
 #include "HealthComponent.h"
 #include "../Spell/BasicSpell.h"
+#define debug 1
 ARPGGameCharacter::ARPGGameCharacter(){
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -54,22 +55,27 @@ void ARPGGameCharacter::BeginPlay(){
 	Super::BeginPlay();
 	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
 		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
-		ACurrentSpell->InitSpell(1);
+		ACurrentSpell->InitSpell(1,10.0);
 		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
 		ACurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
-		auto test = ACurrentSpell->GetAttachParentSocketName();
-		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());
 		Spells.Add(ACurrentSpell);
+#if debug
+		/*auto test = ACurrentSpell->GetAttachParentSocketName();
+		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());*/
+		UE_LOG(LogTemp, Display, TEXT("Location %s"), *ACurrentSpell->GetActorLocation().ToString());
+#endif
 	}
 }
 void ARPGGameCharacter::Cast(){
-	if (!GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) && !GetMovementComponent()->IsFalling() && ManaComponent->CastIsPossible(Spells[CurrentSpell]->GetRequirement())){
+	if (!AnyAction && !GetWorld()->GetTimerManager().IsTimerActive(ActionHandle) &&!GetMovementComponent()->IsFalling() && ManaComponent->CastIsPossible(Spells[CurrentSpell]->GetRequirement())&& Spells[CurrentSpell]->SpellIsValid()){
 		Casting1H = true;
 		AnyAction = true;
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
 			AnyAction = false;
-			}, 1.4, false);
+			UE_LOG(LogTemp, Display, TEXT("Unblok"));
+			}, 1.7, false);
+		UE_LOG(LogTemp, Display, TEXT("Blok"));
 		ManaComponent->Cast(Spells[CurrentSpell]->GetRequirement());
 		Spells[CurrentSpell]->UseSpell();
 	}

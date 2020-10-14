@@ -15,7 +15,7 @@ protected:
 		class UProjectileMovementComponent* ProjectileMovement;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
 		class UParticleSystem* MovementParticle;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		UParticleSystem* DestroyParticle;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		TSubclassOf<class UDamageType> DamageType;
@@ -29,7 +29,7 @@ public:
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
-	void InitProjectile(TSubclassOf<UDamageType> ProjectileDamageType);
+	void InitProjectile(TSubclassOf<UDamageType> InProjectileDamageType, UParticleSystem*InDestroyParticle);
 	virtual bool ProjectileIsValid() { return bIsValid; }
 private:
 	bool bIsValid = false;

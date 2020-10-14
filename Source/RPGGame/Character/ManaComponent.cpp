@@ -18,8 +18,9 @@ bool UManaComponent::CastIsPossible(float Requirement){
 	return Requirement<= ActualMana;
 }
 void UManaComponent::Cast(float Requirement){
-	if (CastIsPossible(Requirement))
-		ActualMana -= Requirement;
+	if (CastIsPossible(Requirement)) {
+		//ActualMana -= Requirement;
+	}
 }
 // Called every frame
 //void UManaComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction){

@@ -35,9 +35,11 @@ bool ABasicSpell::LevelUpSpell(){
 	}
 	return false;
 }
-void ABasicSpell::InitSpell(int32 NewLevel){
-	this->Level = NewLevel;
-	this->Requirement = ManaRequirementPerLevel[this->Level];
-	bIsValid= ManaRequirementPerLevel.Num() > 0 && Level > 0 && Requirement > 0 && ParticleEffect != nullptr;
+void ABasicSpell::InitSpell(int32 InLevel,float InDamage){
+	this->Level = InLevel;
+	this->Damage = InDamage;
+	if(ManaRequirementPerLevel.Contains(this->Level))
+		this->Requirement = ManaRequirementPerLevel[this->Level];
+	bIsValid= ManaRequirementPerLevel.Num() > 0 && Level > 0 && Requirement > 0.0 && ParticleEffect != nullptr &&this->Damage>0.0;
 }
 

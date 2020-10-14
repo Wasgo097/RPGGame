@@ -15,3 +15,11 @@ UCLASS()
 class RPGGAME_API URestoreHealth : public UMyDamageTypes {
 	GENERATED_BODY()	
 };
+UCLASS()
+class RPGGAME_API UFireDamage : public UMyDamageTypes {
+	GENERATED_BODY()	
+};
+UCLASS()
+class RPGGAME_API UFrostDamage : public UMyDamageTypes {
+	GENERATED_BODY()	
+};

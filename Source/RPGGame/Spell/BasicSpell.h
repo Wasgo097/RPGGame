@@ -19,7 +19,7 @@ public:
 	virtual bool SpellIsValid();
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
-	void InitSpell(int32 NewLevel);
+	void InitSpell(int32 InLevel, float InDamage);
 	float GetRequirement() { return Requirement; }
 	int32 GetLevel() { return Level; }
 protected:
@@ -38,9 +38,11 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")
 		TMap<int32, float> ManaRequirementPerLevel;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
-		float Requirement;
+		float Requirement=0.0;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
-		int32 Level;
+		float Damage=0.0;
+	UPROPERTY(BlueprintReadOnly, Category = "Properties")
+		int32 Level=0;
 private:
 	bool bIsValid = false;
 };

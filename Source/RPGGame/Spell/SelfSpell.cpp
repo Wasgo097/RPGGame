@@ -11,7 +11,7 @@ void ASelfSpell::UseSpell(){
 	if (SpellIsValid()) {
 		if (ACharacter* MyCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) {
 			UGameplayStatics::SpawnEmitterAtLocation(GetWorld(), ParticleEffect, MyCharacter->GetActorLocation());
-			UGameplayStatics::ApplyDamage(MyCharacter, Level*10, nullptr, MyCharacter, DamageType);
+			UGameplayStatics::ApplyDamage(MyCharacter, Level*Damage, nullptr, MyCharacter, DamageType);
 		}
 	}
 }
