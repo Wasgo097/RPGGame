@@ -1,13 +1,14 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 #include "RPGGameCharacter.h"
-#include "HeadMountedDisplayFunctionLibrary.h"
+#include "DrawDebugHelpers.h"
 #include "Camera/CameraComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "Components/InputComponent.h"
-#include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/Controller.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "Engine/SkeletalMeshSocket.h"
+#include "Components/InputComponent.h"
+#include "Components/CapsuleComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "HeadMountedDisplayFunctionLibrary.h"
+#include "GameFramework/CharacterMovementComponent.h"
 /////
 #include "ManaComponent.h"
 #include "HealthComponent.h"
@@ -62,6 +63,7 @@ void ARPGGameCharacter::BeginPlay(){
 #if debug
 		/*auto test = ACurrentSpell->GetAttachParentSocketName();
 		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());*/
+		DrawDebugSphere(GetWorld(), ACurrentSpell->GetActorLocation(), 2.0, 12, FColor::Yellow, false, 5.0, 0, 1.0);
 		UE_LOG(LogTemp, Display, TEXT("Location %s"), *ACurrentSpell->GetActorLocation().ToString());
 #endif
 	}
