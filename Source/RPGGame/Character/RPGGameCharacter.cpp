@@ -54,8 +54,12 @@ void ARPGGameCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerI
 }
 void ARPGGameCharacter::BeginPlay(){
 	Super::BeginPlay();
+	FVector Location = GetMesh()->GetSocketLocation(TEXT("RightHandSocket"));
+#if debug
+	DrawDebugSphere(GetWorld(), Location, 5.0, 12, FColor::Green, false, 10.0, 0, 1.0);
+#endif
 	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
-		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor< ABasicSpell>(Spell);
+		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor<ABasicSpell>(Spell,Location,FRotator::ZeroRotator);
 		ACurrentSpell->InitSpell(1,10.0);
 		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
 		ACurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
@@ -63,7 +67,7 @@ void ARPGGameCharacter::BeginPlay(){
 #if debug
 		/*auto test = ACurrentSpell->GetAttachParentSocketName();
 		UE_LOG(LogTemp, Display, TEXT("Socket: %s"), *test.ToString());*/
-		DrawDebugSphere(GetWorld(), ACurrentSpell->GetActorLocation(), 2.0, 12, FColor::Yellow, false, 5.0, 0, 1.0);
+		//DrawDebugSphere(GetWorld(), ACurrentSpell->GetActorLocation(), 4.0, 12, FColor::Yellow, false, 5.0, 0, 1.0);
 		UE_LOG(LogTemp, Display, TEXT("Location %s"), *ACurrentSpell->GetActorLocation().ToString());
 #endif
 	}
@@ -75,9 +79,9 @@ void ARPGGameCharacter::Cast(){
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
 			AnyAction = false;
-			UE_LOG(LogTemp, Display, TEXT("Unblok"));
+			UE_LOG(LogTemp, Display, TEXT("Unblock"));
 			}, 1.7, false);
-		UE_LOG(LogTemp, Display, TEXT("Blok"));
+		UE_LOG(LogTemp, Display, TEXT("Block"));
 		ManaComponent->Cast(Spells[CurrentSpell]->GetRequirement());
 		Spells[CurrentSpell]->UseSpell();
 	}
@@ -121,14 +125,20 @@ void ARPGGameCharacter::Jump(){
 		Super::Jump();
 }
 void ARPGGameCharacter::NextSpell(){
-	if(CurrentSpell<7)
-		CurrentSpell ++;
-	UE_LOG(LogTemp, Display, TEXT("Current Spell is %d"), CurrentSpell);
+	if (CurrentSpell < 7) {
+		CurrentSpell++;
+#if debug
+		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());
+#endif
+	}
 }
 void ARPGGameCharacter::PreviousSpell(){
-	if(CurrentSpell>1)
+	if (CurrentSpell > 1) {
 		CurrentSpell--;
-	UE_LOG(LogTemp, Display, TEXT("Current Spell is %d"), CurrentSpell);
+#if debug
+		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());
+#endif
+	}
 }
 float ARPGGameCharacter::HPRatio(){
 	return HealthComponent->GetRatio();
