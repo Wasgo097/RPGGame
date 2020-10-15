@@ -56,7 +56,7 @@ void ARPGGameCharacter::BeginPlay(){
 	Super::BeginPlay();
 	FVector Location = GetMesh()->GetSocketLocation(TEXT("RightHandSocket"));
 #if debug
-	DrawDebugSphere(GetWorld(), Location, 5.0, 12, FColor::Green, false, 10.0, 0, 1.0);
+	//DrawDebugSphere(GetWorld(), Location, 5.0, 12, FColor::Green, false, 10.0, 0, 1.0);
 #endif
 	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
 		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor<ABasicSpell>(Spell,Location,FRotator::ZeroRotator);
@@ -125,7 +125,7 @@ void ARPGGameCharacter::Jump(){
 		Super::Jump();
 }
 void ARPGGameCharacter::NextSpell(){
-	if (CurrentSpell < 7) {
+	if (CurrentSpell < 3) {
 		CurrentSpell++;
 #if debug
 		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());

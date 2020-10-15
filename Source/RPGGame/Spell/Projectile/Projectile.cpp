@@ -5,6 +5,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SphereComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #define debug 1
 // Sets default values
@@ -13,14 +14,16 @@ AProjectile::AProjectile(){
 	//PrimaryActorTick.bCanEverTick = true;
 	// Use a sphere as a simple collision representation
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
-	CollisionComponent->InitSphereRadius(5.0f);
-	CollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
+	CollisionComponent->InitSphereRadius(2.0f);
+	//CollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);// set up a notification for when this component hits something blocking
 	// Players can't walk on it
 	CollisionComponent->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
 	CollisionComponent->CanCharacterStepUpOn = ECB_No;
 	// Set as root component
 	RootComponent = CollisionComponent;
+	StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("StaticMesh"));
+	StaticMesh->AttachTo(RootComponent);
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComponent;

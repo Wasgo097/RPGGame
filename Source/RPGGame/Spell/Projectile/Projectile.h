@@ -15,6 +15,8 @@ protected:
 		class UProjectileMovementComponent* ProjectileMovement;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
 		class UParticleSystem* MovementParticle;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
+		class UStaticMeshComponent* StaticMesh;
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		UParticleSystem* DestroyParticle;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
