@@ -3,11 +3,9 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "BasicSpell.generated.h"
-class USphereComponent;
 class UParticleSystem;
 class UDamageType;
 class USceneComponent;
-//class UProjectileMovementComponent;
 UCLASS()
 class RPGGAME_API ABasicSpell : public AActor{
 	GENERATED_BODY()
@@ -25,12 +23,8 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
-	//UPROPERTY(/*EditDefaultsOnly,*/ BlueprintReadOnly, Category = "Gameplay")
-	//	UProjectileMovementComponent* MovementComp = nullptr;
 	UPROPERTY(BlueprintReadOnly)
 		USceneComponent* SceneComponent=nullptr;
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
-		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
 		UParticleSystem* ParticleEffect = nullptr;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Properties")

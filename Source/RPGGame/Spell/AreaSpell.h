@@ -4,6 +4,7 @@
 #include "BasicSpell.h"
 #include "AreaSpell.generated.h"
 class UAreaSpellDataAsset;
+class USphereComponent;
 UCLASS()
 class RPGGAME_API AAreaSpell : public ABasicSpell{
 	GENERATED_BODY()
@@ -12,6 +13,8 @@ public:
 	virtual bool LevelUpSpell();
 	virtual bool SpellIsValid();
 protected:
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly,Category="Data")
 		UAreaSpellDataAsset* DataAsset;
 };
