@@ -2,12 +2,10 @@
 #include "BasicSpell.h"
 #include "Particles/ParticleSystem.h"
 #include "Components/SceneComponent.h"
-// Sets default values
+#define debug 1
 ABasicSpell::ABasicSpell(){
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
-	Level = 0;
-	Requirement = 0.0f;
+	//PrimaryActorTick.bCanEverTick = true;
 	SceneComponent = CreateDefaultSubobject<USceneComponent>(TEXT("SceneComponent"));
 	RootComponent = SceneComponent;
 }

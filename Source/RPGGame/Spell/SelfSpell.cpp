@@ -3,6 +3,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "DataAsset/SelfSpellDataAsset.h"
+#define debug 1
 bool ASelfSpell::LevelUpSpell(){
 	return Super::LevelUpSpell();
 }
