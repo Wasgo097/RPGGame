@@ -17,7 +17,7 @@ public:
 	virtual bool SpellIsValid();
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
-	void InitSpell(int32 InLevel, float InDamage);
+	virtual void InitSpell(int32 InLevel, float InDamage);
 	float GetRequirement() { return Requirement; }
 	int32 GetLevel() { return Level; }
 protected:

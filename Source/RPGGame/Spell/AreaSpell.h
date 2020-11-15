@@ -5,16 +5,21 @@
 #include "AreaSpell.generated.h"
 class UAreaSpellDataAsset;
 class USphereComponent;
+class UParticleSystemComponent;
 UCLASS()
 class RPGGAME_API AAreaSpell : public ABasicSpell{
 	GENERATED_BODY()
 public:
+	AAreaSpell();
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
 	virtual bool SpellIsValid();
+	virtual void InitSpell(int32 InLevel, float InDamage);
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly,Category="Data")
 		UAreaSpellDataAsset* DataAsset;
+	UPROPERTY()
+		UParticleSystemComponent* PArticleManager = nullptr;
 };

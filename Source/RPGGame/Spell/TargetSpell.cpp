@@ -15,6 +15,7 @@ void ATargetSpell::UseSpell(){
 	Super::UseSpell();
 	if (SpellIsValid()) {
 		if (ACharacter* MyCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0)) {
+			//rotate character to target direction
 			FVector Location;
 			FRotator Rotator,CharacterRotator;
 			APlayerController* PlayerController= MyCharacter->GetController<APlayerController>();
@@ -35,7 +36,7 @@ void ATargetSpell::UseSpell(){
 			Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButAlwaysSpawn;
 			//Parameters.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 			AProjectile* CurrentProjectile=GetWorld()->SpawnActor<AProjectile>(Projectile,Location , Rotator, Parameters);
-			CurrentProjectile->InitProjectile(DamageType, ParticleEffect);
+			CurrentProjectile->InitProjectile(DamageType, ParticleEffect, Level * Damage);
 #if debug 
 			UE_LOG(LogTemp, Display, TEXT("Spell casted"));
 			DrawDebugSphere(GetWorld(), CurrentProjectile->GetActorLocation(), 2.0, 12, FColor::Green, false, 10.0, 0, 1.0);

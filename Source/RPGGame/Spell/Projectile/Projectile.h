@@ -21,6 +21,8 @@ protected:
 		UParticleSystem* DestroyParticle;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		TSubclassOf<class UDamageType> DamageType;
+	float Damage = 0.0;
+protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 public:	
@@ -31,7 +33,7 @@ public:
 		void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 	// Called every frame
 	//virtual void Tick(float DeltaTime) override;
-	void InitProjectile(TSubclassOf<UDamageType> InProjectileDamageType, UParticleSystem*InDestroyParticle);
+	void InitProjectile(TSubclassOf<UDamageType> InProjectileDamageType, UParticleSystem*InDestroyParticle,float InDamage);
 	virtual bool ProjectileIsValid() { return bIsValid; }
 private:
 	bool bIsValid = false;
