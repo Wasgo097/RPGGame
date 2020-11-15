@@ -9,6 +9,7 @@ class RPGGAME_API ATargetSpell : public ABasicSpell{
 public:
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
+	virtual void InitSpell(int32 InLevel);
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "Data")
 		class UTargetSpellDataAsset* DataAsset;

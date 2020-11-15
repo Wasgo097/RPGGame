@@ -6,6 +6,11 @@
 bool ASelfSpell::LevelUpSpell(){
 	return Super::LevelUpSpell();
 }
+void ASelfSpell::InitSpell(int32 InLevel){
+	Super::InitSpell(InLevel);
+	Damage = DataAsset->DamagePerLevel;
+	IsValid = IsValid && Damage > 0.0;
+}
 void ASelfSpell::UseSpell(){
 	Super::UseSpell();
 	if (SpellIsValid()) {

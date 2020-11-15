@@ -14,12 +14,17 @@ public:
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
 	virtual bool SpellIsValid();
-	virtual void InitSpell(int32 InLevel, float InDamage);
+	virtual void InitSpell(int32 InLevel);
 protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+	UPROPERTY(BlueprintReadOnly)
 		USphereComponent* SphereCollision = nullptr;
 	UPROPERTY(EditDefaultsOnly,Category="Data")
 		UAreaSpellDataAsset* DataAsset;
+	UPROPERTY(BlueprintReadOnly)
+		UParticleSystemComponent* ParticleManager = nullptr;
 	UPROPERTY()
-		UParticleSystemComponent* PArticleManager = nullptr;
+		FTimerHandle ParticleTimer;
+protected:
+	UFUNCTION()
+		void DeactiveParticle();
 };

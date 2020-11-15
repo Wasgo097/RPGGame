@@ -11,6 +11,11 @@
 bool ATargetSpell::LevelUpSpell(){
 	return Super::LevelUpSpell();
 }
+void ATargetSpell::InitSpell(int32 InLevel){
+	Super::InitSpell(InLevel);
+	Damage = DataAsset->DamagePerLevel;
+	IsValid = IsValid && Damage > 0.0&&Projectile!=nullptr;
+}
 void ATargetSpell::UseSpell(){
 	Super::UseSpell();
 	if (SpellIsValid()) {

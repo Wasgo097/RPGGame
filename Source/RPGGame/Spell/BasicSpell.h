@@ -17,7 +17,7 @@ public:
 	virtual bool SpellIsValid();
 	virtual void UseSpell();
 	virtual bool LevelUpSpell();
-	virtual void InitSpell(int32 InLevel, float InDamage);
+	virtual void InitSpell(int32 InLevel);
 	float GetRequirement() { return Requirement; }
 	int32 GetLevel() { return Level; }
 protected:
@@ -37,6 +37,6 @@ protected:
 		float Damage=0.0;
 	UPROPERTY(BlueprintReadOnly, Category = "Properties")
 		int32 Level=0;
-private:
-	bool bIsValid = false;
+	UPROPERTY(BlueprintReadOnly, Category = "Properties")
+		bool IsValid = false;
 };

@@ -60,7 +60,7 @@ void ARPGGameCharacter::BeginPlay(){
 #endif
 	for (TSubclassOf<ABasicSpell> Spell : AvailableSpells) {
 		ABasicSpell* ACurrentSpell = GetWorld()->SpawnActor<ABasicSpell>(Spell,Location,FRotator::ZeroRotator);
-		ACurrentSpell->InitSpell(1,10.0);
+		ACurrentSpell->InitSpell(1);
 		FAttachmentTransformRules Rules = FAttachmentTransformRules(EAttachmentRule::SnapToTarget, true);
 		ACurrentSpell->AttachToComponent(GetMesh(), Rules, TEXT("RightHandSocket"));
 		Spells.Add(ACurrentSpell);

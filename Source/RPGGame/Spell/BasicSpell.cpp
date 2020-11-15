@@ -20,7 +20,7 @@ void ABasicSpell::BeginPlay(){
 //	Super::Tick(DeltaTime);
 //}
 bool ABasicSpell::SpellIsValid(){
-	return bIsValid;
+	return IsValid;
 }
 void ABasicSpell::UseSpell(){
 	if (!SpellIsValid())
@@ -34,11 +34,10 @@ bool ABasicSpell::LevelUpSpell(){
 	}
 	return false;
 }
-void ABasicSpell::InitSpell(int32 InLevel,float InDamage){
+void ABasicSpell::InitSpell(int32 InLevel){
 	this->Level = InLevel;
-	this->Damage = InDamage;
 	if(ManaRequirementPerLevel.Contains(this->Level))
 		this->Requirement = ManaRequirementPerLevel[this->Level];
-	bIsValid= ManaRequirementPerLevel.Num() > 0 && Level > 0 && Requirement > 0.0 && ParticleEffect != nullptr &&this->Damage>0.0;
+	IsValid = ManaRequirementPerLevel.Num() > 0 && Level > 0 && Requirement > 0.0 && ParticleEffect != nullptr ;
 }
 
