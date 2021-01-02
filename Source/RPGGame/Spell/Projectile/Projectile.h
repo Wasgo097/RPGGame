@@ -8,7 +8,7 @@ class RPGGAME_API AProjectile : public AActor{
 	GENERATED_BODY()
 protected:
 	/** Sphere collision component */
-	UPROPERTY(BlueprintReadOnly, Category = "Projectile")
+	UPROPERTY(VisibleAnywhere,BlueprintReadOnly, Category = "Projectile")
 		class USphereComponent* CollisionComponent;
 	/** Projectile movement component */
 	UPROPERTY(BlueprintReadOnly, Category = "Movement")
@@ -17,9 +17,9 @@ protected:
 		class UParticleSystem* MovementParticle;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
 		class UStaticMeshComponent* StaticMesh;
-	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay")
 		UParticleSystem* DestroyParticle;
-	UPROPERTY(BlueprintReadOnly, Category = "Properties")
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Properties")
 		TSubclassOf<class UDamageType> DamageType;
 	float Damage = 0.0;
 protected:

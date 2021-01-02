@@ -34,7 +34,7 @@ protected:
 	UFUNCTION(BlueprintPure)
 		float MPRatio();
 protected:
-	UPROPERTY(EditInstanceOnly, Category = "Spell")
+	UPROPERTY(EditDefaultsOnly, Category = "Spell")
 		TArray<TSubclassOf<ABasicSpell>> AvailableSpells;
 	UPROPERTY(BlueprintReadOnly, Category = "Spell")
 		TArray<ABasicSpell*> Spells;

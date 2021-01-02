@@ -79,9 +79,13 @@ void ARPGGameCharacter::Cast(){
 		GetWorld()->GetTimerManager().SetTimer(ActionHandle, [this]() {
 			Casting1H = false;
 			AnyAction = false;
+#if debug
 			UE_LOG(LogTemp, Display, TEXT("Unblock"));
+#endif
 			}, 1.7, false);
+#if debug
 		UE_LOG(LogTemp, Display, TEXT("Block"));
+#endif
 		ManaComponent->Cast(Spells[CurrentSpell]->GetRequirement());
 		Spells[CurrentSpell]->UseSpell();
 	}
@@ -125,7 +129,7 @@ void ARPGGameCharacter::Jump(){
 		Super::Jump();
 }
 void ARPGGameCharacter::NextSpell(){
-	if (CurrentSpell < 8) {
+	if (CurrentSpell < 7) {
 		CurrentSpell++;
 #if debug
 		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());
@@ -133,7 +137,7 @@ void ARPGGameCharacter::NextSpell(){
 	}
 }
 void ARPGGameCharacter::PreviousSpell(){
-	if (CurrentSpell > 1) {
+	if (CurrentSpell > 0) {
 		CurrentSpell--;
 #if debug
 		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());

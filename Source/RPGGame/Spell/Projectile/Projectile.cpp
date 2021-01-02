@@ -14,16 +14,15 @@ AProjectile::AProjectile(){
 	//PrimaryActorTick.bCanEverTick = true;
 	// Use a sphere as a simple collision representation
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
-	CollisionComponent->InitSphereRadius(2.0f);
+	CollisionComponent->InitSphereRadius(10.0f);
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	//CollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
 	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);// set up a notification for when this component hits something blocking
-	// Players can't walk on it
-	CollisionComponent->SetWalkableSlopeOverride(FWalkableSlopeOverride(WalkableSlope_Unwalkable, 0.f));
-	CollisionComponent->CanCharacterStepUpOn = ECB_No;
 	// Set as root component
 	RootComponent = CollisionComponent;
 	StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("StaticMesh"));
 	StaticMesh->AttachTo(RootComponent);
+	//StaticMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);// set up a notification for when this component hits something blocking;
 	// Use a ProjectileMovementComponent to govern this projectile's movement
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComponent;
@@ -41,8 +40,8 @@ void AProjectile::BeginPlay(){
 }
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit){
 	// Only add impulse and destroy projectile if we hit a physics
-	UE_LOG(LogTemp, Display, TEXT("OnHit"));
 #if debug
+	UE_LOG(LogTemp, Display, TEXT("OnHit"));
 	DrawDebugSphere(GetWorld(), Hit.Location, 4.0, 12, FColor::Red, false, 10.0, 0, 1.0);
 #endif
 	if ((OtherActor != NULL) && (OtherActor != this) && (OtherComp != NULL) && OtherComp->IsSimulatingPhysics()) {
