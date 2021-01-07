@@ -129,7 +129,7 @@ void ARPGGameCharacter::Jump(){
 		Super::Jump();
 }
 void ARPGGameCharacter::NextSpell(){
-	if (CurrentSpell < 7) {
+	if (CurrentSpell < 6) {
 		CurrentSpell++;
 #if debug
 		UE_LOG(LogTemp, Display, TEXT("Current Spell is %d %s"), CurrentSpell, *Spells[CurrentSpell]->GetFName().ToString());

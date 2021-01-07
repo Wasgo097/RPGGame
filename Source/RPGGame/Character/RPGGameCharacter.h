@@ -49,5 +49,5 @@ protected:
 		bool AnyAction =false;
 	FTimerHandle ActionHandle;
 	//index 0 is null
-	int32 CurrentSpell = 1;
+	int32 CurrentSpell = 0;
 };
