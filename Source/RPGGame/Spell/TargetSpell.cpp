@@ -29,7 +29,6 @@ void ATargetSpell::UseSpell(){
 			CharacterRotator.Roll = 0.0;
 			CharacterRotator.Pitch = 0.0;
 			MyCharacter->SetActorRotation(CharacterRotator);
-			//Location = ;
 			Location = GetActorLocation() + (Rotator.Vector() * 20);
 #if debug
 			FVector EndTrace = FVector::ZeroVector;

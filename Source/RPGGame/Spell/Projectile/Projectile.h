@@ -8,15 +8,14 @@ class RPGGAME_API AProjectile : public AActor{
 	GENERATED_BODY()
 protected:
 	/** Sphere collision component */
-	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category = "Projectile")
+	UPROPERTY(EditDefaultsOnly,BlueprintReadWrite, Category = "Gameplay")
 		class USphereComponent* CollisionComponent;
-	/** Projectile movement component */
-	UPROPERTY(BlueprintReadOnly, Category = "Movement")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Gameplay")
+		class UStaticMeshComponent* StaticMesh;
+	UPROPERTY(BlueprintReadOnly, Category = "Gameplay")
 		class UProjectileMovementComponent* ProjectileMovement;
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
-		class UParticleSystem* MovementParticle;
-	/*UPROPERTY(EditDefaultsOnly,VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay")
-		class UStaticMeshComponent* StaticMesh;*/
+	/*UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Gameplay")
+		class UParticleSystem* MovementParticle;*/
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Gameplay")
 		UParticleSystem* DestroyParticle;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Properties")

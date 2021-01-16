@@ -11,18 +11,20 @@
 // Sets default values
 AProjectile::AProjectile(){
 	//PrimaryActorTick.bCanEverTick = true;
-	/*StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("MeshComp"));
-	StaticMesh->AttachTo(RootComponent);
-	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	RootComponent = StaticMesh;*/
 	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
 	CollisionComponent->InitSphereRadius(20.0f);
 	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 	CollisionComponent->SetCollisionResponseToAllChannels(ECR_Block);
-	CollisionComponent->SetupAttachment(RootComponent);
+	//CollisionComponent->SetupAttachment(RootComponent);
 	RootComponent = CollisionComponent;
+	StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("MeshComp"));
+	StaticMesh->AttachTo(RootComponent);
+	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	StaticMesh->SetupAttachment(CollisionComponent);
+	//RootComponent = StaticMesh;
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
-	ProjectileMovement->UpdatedComponent = CollisionComponent;
+	//ProjectileMovement->UpdatedComponent = CollisionComponent;
+	ProjectileMovement->UpdatedComponent = StaticMesh;
 	ProjectileMovement->InitialSpeed = 3000.f;
 	ProjectileMovement->MaxSpeed = 3000.f;
 	ProjectileMovement->bRotationFollowsVelocity = true;
@@ -33,7 +35,7 @@ AProjectile::AProjectile(){
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay(){
 	Super::BeginPlay();
-	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
+	//CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit){
 	// Only add impulse and destroy projectile if we hit a physics
@@ -59,7 +61,7 @@ void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimi
 void AProjectile::InitProjectile(TSubclassOf<UDamageType> InProjectileDamageType, UParticleSystem* InDestroyParticle, float InDamage){
 	DamageType = InProjectileDamageType;
 	DestroyParticle = InDestroyParticle;
-	bIsValid = DamageType != nullptr && DestroyParticle != nullptr && MovementParticle != nullptr;
+	bIsValid = DamageType != nullptr && DestroyParticle != nullptr /*&& MovementParticle != nullptr*/;
 	Damage = InDamage;
 }
 // Called every frame
