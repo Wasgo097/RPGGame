@@ -10,20 +10,17 @@
 #define debug 1
 // Sets default values
 AProjectile::AProjectile(){
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	//PrimaryActorTick.bCanEverTick = true;
-	// Use a sphere as a simple collision representation
-	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("CollisionComponent"));
-	CollisionComponent->InitSphereRadius(10.0f);
-	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
-	//CollisionComponent->BodyInstance.SetCollisionProfileName("Projectile");
-	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);// set up a notification for when this component hits something blocking
-	// Set as root component
-	RootComponent = CollisionComponent;
-	StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("StaticMesh"));
+	/*StaticMesh = CreateDefaultSubobject< UStaticMeshComponent>(TEXT("MeshComp"));
 	StaticMesh->AttachTo(RootComponent);
-	//StaticMesh->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);// set up a notification for when this component hits something blocking;
-	// Use a ProjectileMovementComponent to govern this projectile's movement
+	StaticMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	RootComponent = StaticMesh;*/
+	CollisionComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	CollisionComponent->InitSphereRadius(20.0f);
+	CollisionComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	CollisionComponent->SetCollisionResponseToAllChannels(ECR_Block);
+	CollisionComponent->SetupAttachment(RootComponent);
+	RootComponent = CollisionComponent;
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("ProjectileComp"));
 	ProjectileMovement->UpdatedComponent = CollisionComponent;
 	ProjectileMovement->InitialSpeed = 3000.f;
@@ -31,12 +28,12 @@ AProjectile::AProjectile(){
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->bShouldBounce = false;
 	ProjectileMovement->ProjectileGravityScale = 0.0;
-	// Die after 3 seconds by default
 	InitialLifeSpan = 3.0f;
 }
 // Called when the game starts or when spawned
 void AProjectile::BeginPlay(){
-	Super::BeginPlay();	
+	Super::BeginPlay();
+	CollisionComponent->OnComponentHit.AddDynamic(this, &AProjectile::OnHit);
 }
 void AProjectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit){
 	// Only add impulse and destroy projectile if we hit a physics
